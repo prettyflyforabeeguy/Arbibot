@@ -4,7 +4,8 @@ Due to the inconsistency in which exchanges deal in fiat currencies, the Arbibot
 This will mean there is a gap between actual prices and what you might see on the exchange.  Prices are meant to be an approximation only.
 None of this is investing advice and you use this at your own risk.
 
-Getting Started:
+<b>Getting Started:</b>
+Clone this repo: ```git clone https://github.com/prettyflyforabeeguy/Arbibot.git ```
 
 
 config/config.json example:
