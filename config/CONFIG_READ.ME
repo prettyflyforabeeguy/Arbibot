@@ -1,0 +1,22 @@
+{
+    "CheckFrequencyMinutes": "240",             | <--- This is how often the bot will loop checking for prices in minutes.  240 minutes = 4hours. Be mindful of API transaction limits!
+    "Coin": "DIME",                             | <--- This is the main coin you plan on searching for.
+    "CpatexEnabled": true,                      | <--- If checking prices on the C-Patex exchange, and have provided your APIKey/Secret, set this to true.
+    "TradePairs": [                             | <--- All trade pairs for C-Patex.  Syntax must be lowercase, the coin and market are one word, in quotes and comma separated.
+        "dimeltc",
+        "dimedoge",
+        "dimeusdc"
+    ],
+    "Crex24Enabled": true,                      | <--- If checking prices on the Crex24 exchange, and have provided your APIKey/Secret, set this to true.
+    "CrexTradePairs":[                          | <--- All trade pairs for Crex24.  Syntax must be uppercase, the coin and market are separated by a dash, in quotes and comma separated.
+        "DIME-BTC",
+        "DIME-ETH",
+        "DIME-USDT"
+    ],
+    "XeggexEnabled": true,                      | <--- If checking prices on the Xeggex exchange, and have provided your APIKey/Secret, set this to true.
+    "XeggexTradePairs":[                        | <--- All trade pairs for Xeggex.  Syntax must be uppercase, the coin and market are separated by an underscore, in quotes and comma separated.
+        "DIME_USDT",
+        "DIME_LTC",
+        "DIME_DOGE"
+    ]
+}
