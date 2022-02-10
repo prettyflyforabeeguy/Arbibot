@@ -63,9 +63,10 @@ Just populate your API Keys and API Secrets accordingly between the quotes<br>
 }
 ```
 <br>
-If you found this useful and would like to see continued support of projects like this, please consider any donation:<br>
-DIME: 7JwbNZdP3pzreem3v3rmWAXcP5LxvqRTgU <br>
-BTC: bc1q3m4x0d8j6c8enkzeet2c4tcy26uflsm9s4njg4 <br>
-LTC: ltc1qzhavlsq29kqe65cjjuq2l23d92f0mqlwkwldrg <br>
-ETH: 0xaf9dB0Eaf3A398A4F549A09e1230B42B51FdAFF3 <br>
+Thank you all for your interest and support!<br>
+If you found this or any of my projects useful and would like to see more in the future, please consider a donation:<br>
+<b>DIME:</b> 7JwbNZdP3pzreem3v3rmWAXcP5LxvqRTgU <br>
+<b>BTC:</b> bc1q3m4x0d8j6c8enkzeet2c4tcy26uflsm9s4njg4 <br>
+<b>LTC:</b> ltc1qzhavlsq29kqe65cjjuq2l23d92f0mqlwkwldrg <br>
+<b>ETH:</b> 0xaf9dB0Eaf3A398A4F549A09e1230B42B51FdAFF3 <br>
 
