@@ -11,11 +11,14 @@ Clone this repo: ```git clone https://github.com/prettyflyforabeeguy/Arbibot.git
 <br>
 You will need to sign up for a free API Key from <a href=https://coinmarketcap.com/api/>CoinMarketCap</a><br>
 This key will need to be added to your config/creds.json (see example below)<br>
-You will need an account and APIKey and APISecret from at least one of these exchanges:<br>
-<a href=https://c-patex.com>https://c-patex.com</a><br>
-<a href=https://crex24.com>https://crex24.com</a><br>
-<a href=https://xeggex.com/>https://xeggex.com</a><br>
-This key and secret will need to be added to your config/creds.json (see example below)<br>
+
+  <b>Optional:</b><br>
+   If you create an account and setup an APIKey and APISecret from any of the supported exchanges below, You'll have the potential to make more complex queries in the future:<br>
+   <a href=https://c-patex.com>https://c-patex.com</a><br>
+   <a href=https://crex24.com>https://crex24.com</a><br>
+   <a href=https://xeggex.com/>https://xeggex.com</a><br>
+  This key and secret will need to be added to your config/creds.json (see example below)<br>
+
 It's important to know your API keys will have transaction limits and should not be abused.  So be mindful of how often you're instructing the bot to query prices.<br>
 <br>
 <b>config/config.json example:</b><br>
@@ -49,6 +52,7 @@ You can change the coin to any coin the exchange supports and include all the tr
 
 <b>config/creds.json example:</b><br>
 You will need to create a creds.json file in the config folder using the example below.<br>
+At a minimum the CMCKey is required.  If you plan to use C-Patex the Cpatexendpoint is also required.
 Please read the /config/CREDS_READ.ME carefully for more details<br>
 Just populate your API Keys and API Secrets accordingly between the quotes<br>
 ```
