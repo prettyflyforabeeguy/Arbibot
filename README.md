@@ -15,7 +15,7 @@ You will need an account and APIKey and APISecret from at least one of these exc
 <a href=https://crex24.com>https://crex24.com</a><br>
 <a href=https://xeggex.com/>https://xeggex.com</a><br>
 This key and secret will need to be added to your config/creds.json (see example below)<br>
-It's important to know your API keys will have transaction limits and should not be abused.  So be mindful how often you're instructing the bot to query prices.<br>
+It's important to know your API keys will have transaction limits and should not be abused.  So be mindful of how often you're instructing the bot to query prices.<br>
 <br>
 <b>config/config.json example:</b><br>
 You will need to create a config.json file in the config folder using the example below.<br>
@@ -62,5 +62,10 @@ Just populate your API Keys and API Secrets accordingly between the quotes<br>
     "xeggexapisecret": ""
 }
 ```
-
+<br>
+If you found this useful and would like to see continued support of projects like this, please consider any donation:<br>
+DIME: 7JwbNZdP3pzreem3v3rmWAXcP5LxvqRTgU <br>
+BTC: bc1q3m4x0d8j6c8enkzeet2c4tcy26uflsm9s4njg4 <br>
+LTC: ltc1qzhavlsq29kqe65cjjuq2l23d92f0mqlwkwldrg <br>
+ETH: 0xaf9dB0Eaf3A398A4F549A09e1230B42B51FdAFF3 <br>
 
