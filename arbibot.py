@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-appversion = "0.0.1"
+appversion = "0.0.2"
 ############################################################################
 # This Arbitrage bot  application was created by prettyflyforabeeguy
 # https://github.com/prettyflyforabeeguy
@@ -55,18 +55,20 @@ class ArbiBot():
 
                 ppc = float(last) * price
                 ppc = f'{ppc:.10f}'
+                #sell = f'{sell:.10f}'
+                each_pair = each_pair.upper()
 
                 payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), ppc]
                 #print(payload)
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/cpatextickers.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair} approximate price per coin in USD: {ppc} """)
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {ppc} USD per coin.\n""")
             
             except Exception as e:
                 print(f"Error in main_loop: {e}")
 
         ticker, lp = _logger.Logger().get_lowest_price("./data/cpatextickers.csv")
-        print(Style.BRIGHT + Fore.CYAN + Back.MAGENTA + f"The lowest purchase price is {ticker}:${lp}")
+        print(Style.BRIGHT + Fore.CYAN + Back.MAGENTA + f"The lowest purchase price is {ticker}: ${lp}")
     
     def get_crex24_info(self, coin, timestamp):
         # Create crex24tickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
@@ -93,19 +95,20 @@ class ArbiBot():
 
                 ppc = float(last) * price
                 ppc = f'{ppc:.10f}'
+                sell = f'{sell:.10f}'
 
                 payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), ppc]
                 #payload = [each_pair, at, buy, sell, low, high, last, vol]
                 #print(payload)
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/crex24tickers.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair} approximate price per coin in USD: {ppc} """)
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {ppc} USD per coin.\n""")
             
             except Exception as e:
                 print(f"Error in main_loop: {e}")
         
         ticker, lp = _logger.Logger().get_lowest_price("./data/crex24tickers.csv")
-        print(Style.BRIGHT + Fore.WHITE + Back.CYAN + f"The lowest purchase price is {ticker}:${lp}")
+        print(Style.BRIGHT + Fore.WHITE + Back.CYAN + f"The lowest purchase price is {ticker}: ${lp}")
 
     def get_xeggex_info(self, coin, timestamp):
         # Create crex24tickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
@@ -133,17 +136,18 @@ class ArbiBot():
 
                 ppc = float(last) * price
                 ppc = f'{ppc:.10f}'
+                sell = f'{sell:.10f}'
                 
                 payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), ppc]
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/xeggexmarketsymbol.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair} approximate price per coin in USD: {ppc} """)
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {ppc} USD per coin.\n""")
 
             except Exception as e:
                 print(f"Error in main_loop: {e}")
         
         ticker, lp = _logger.Logger().get_lowest_price("./data/xeggexmarketsymbol.csv")
-        print(Style.DIM + Fore.BLACK + Back.WHITE + f"The lowest purchase price is {ticker}:${lp}")    
+        print(Style.DIM + Fore.BLACK + Back.WHITE + f"The lowest purchase price is {ticker}: ${lp}")    
 
     def main_loop(self, chkfreq):
         while True:

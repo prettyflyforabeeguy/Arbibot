@@ -1,0 +1,23 @@
+{
+    "CheckFrequencyMinutes": "480",
+    "Coin": "DIME",
+    "CpatexEnabled": true,
+    "TradePairs": [
+        "dimebtc",
+        "dimeltc",
+        "dimedoge",
+        "dimeusdc"
+    ],
+    "Crex24Enabled": true,
+    "CrexTradePairs":[
+        "DIME-BTC",
+        "DIME-ETH",
+        "DIME-USDT"
+    ],
+    "XeggexEnabled": true,
+    "XeggexTradePairs":[
+        "DIME_USDT",
+        "DIME_LTC",
+        "DIME_DOGE"
+    ]
+}
