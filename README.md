@@ -1,5 +1,5 @@
 # Arbibot
-Arbitrage bot version 0.0.2 by <a href=https://github.com/prettyflyforabeeguy>prettyflyforabeeguy<a/><br>
+Arbitrage bot version 0.0.3 by <a href=https://github.com/prettyflyforabeeguy>prettyflyforabeeguy<a/><br>
 This is a bot that checks exchange crypto prices and finds the cheapest trade pair.
 Due to the inconsistency in which exchanges deal in fiat currencies, the Arbibot will use CoinMarketCap prices to make its price-per-coin comparisons.
 This will mean there is a gap between actual prices and what you might see on the exchange.  Prices are meant to be an approximation only.

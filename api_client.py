@@ -5,6 +5,7 @@ import requests
 import json
 import credentials as _creds
 import api_client as _api
+import time
 
 class APIClient():
     def __init__(self):
@@ -17,6 +18,7 @@ class APIClient():
         self.apisecret = _creds.Creds().get_secret()
         self.apisecret = bytes(self.apisecret, encoding='utf-8')
         self.cmcKey = _creds.Creds().get_cmckey()
+
 
     def api_call(self, method, apiName, url, requestBody):
         session = requests.Session()
@@ -234,6 +236,17 @@ class APIClient():
         response = _api.APIClient().api_call(method, apiName, url, "")
         return response
 
+    # Fetch CMC Prices for unique coins
+    def get_CMC_Prices(self, unique_pairs, currency):
+        priceList = []
+        for coin in unique_pairs:
+            price = self.cmc_Price_Quote(coin, currency)
+            coinDetails = {coin:price}
+            priceList.append(coinDetails)
+            time.sleep(1)
+        return priceList
+
+
 if __name__ == '__main__':
     r = APIClient()
     # FOR TESTING
@@ -267,8 +280,12 @@ if __name__ == '__main__':
     #response = r.deposit_address("GET", "btc")
     #response = r.get_k("GET","dimebtc")
     #response = r.get_k_with_pending_trades("GET","dimebtc")
-    response = r.cmc_Price_Quote("ETH", "USD")
+    #response = r.cmc_Price_Quote("ETH", "USD")
     #response = r.get_Crex24Ticker("GET", "DIME-ETH")
     #response = r.get_XeggexMarketSymbol("GET", "DIME_DOGE")
-    print(f"Test API result:\n{response}")
+
+    #pl = r.get_CMC_Prices(uniquepairs, "USD")
+    #print(pl)
+
+    #print(f"Test API result:\n{response}")
     #print(response["updatedAt"])

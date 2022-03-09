@@ -2,7 +2,7 @@
     "CheckFrequencyMinutes": "480",
     "Coin": "DIME",
     "CpatexEnabled": true,
-    "TradePairs": [
+    "CpatexTradePairs": [
         "dimebtc",
         "dimeltc",
         "dimedoge",
