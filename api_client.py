@@ -69,7 +69,7 @@ class APIClient():
         return marketsList
 
     def ticker(self, method, coinSymbol, tradepair):
-        apiName = "ticker"
+        apiName = tradepair + "_cpatexticker"
         market = coinSymbol + tradepair
         uri = self.endpoint + "/tickers/" + market
         response = _api.APIClient().api_call(method, apiName, uri, "")
@@ -267,6 +267,8 @@ if __name__ == '__main__':
     #response = r.markets("GET")
     #response = r.ticker("GET","ltc", "usdc")
     #response = r.ticker("GET","", "dimedoge")
+    response = r.ticker("GET","", "dimebnb")
+
     #response = r.members("GET")
     #response = r.depth("GET", "dime", "usdc")
     #response = r.order_book("GET", "dimeusdc", "", "1")
@@ -289,3 +291,5 @@ if __name__ == '__main__':
 
     #print(f"Test API result:\n{response}")
     #print(response["updatedAt"])
+
+    print(response)

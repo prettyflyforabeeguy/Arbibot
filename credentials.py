@@ -35,6 +35,9 @@ class Creds:
     def get_cmckey(self) -> str:
         return self.creds_dict["CMCKey"]
 
+    def get_tgramkey(self) -> str:
+        return self.creds_dict["tgram_API_KEY"]
+
     def get_timestamp(self) -> str:
         apiTimeStamp = str(int(time.time() * 1000))
         return apiTimeStamp

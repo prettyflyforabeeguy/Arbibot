@@ -32,6 +32,7 @@ class ArbiBot():
 
     def get_cpatex_info(self, coin, timestamp, pricelist):
         # Create cpatextickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
+        exchange = "CPATEX"
         with open('./data/cpatextickers.csv', 'w', newline='') as file:
             fwriter = csv.writer(file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         print(Style.BRIGHT + Fore.CYAN + Back.MAGENTA + f"### C-PATEX {str(timestamp)} ###")
@@ -57,16 +58,19 @@ class ArbiBot():
                 last = ticker["ticker"]["last"]
                 vol = ticker["ticker"]["vol"]
 
-                ppc = float(last) * price
-                ppc = f'{ppc:.10f}'
+                appc = float(sell) * price
+                bppc = float(buy) * price
+                #ppc = float(last) * price
+                appc = f'{appc:.10f}'
+                bppc = f'{bppc:.10f}'
                 #sell = f'{sell:.10f}'
                 each_pair = each_pair.upper()
 
-                payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), ppc]
+                payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), appc, bppc, exchange, str(timestamp)]
                 #print(payload)
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/cpatextickers.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {ppc} USD per coin.\n   Current CMC price for {c} is ${price}\n""")
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {appc} USD per coin.\n   Current CMC price for {c} is ${price}\n""")
             
             except Exception as e:
                 print(f"Error in main_loop: {e}")
@@ -76,6 +80,7 @@ class ArbiBot():
     
     def get_crex24_info(self, coin, timestamp, pricelist):
         # Create crex24tickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
+        exchange = "CREX24"
         with open('./data/crex24tickers.csv', 'w', newline='') as file:
             fwriter = csv.writer(file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         print(Style.BRIGHT + Fore.WHITE + Back.CYAN + f"### CREX24 {str(timestamp)} ###")
@@ -100,17 +105,24 @@ class ArbiBot():
                 high = ticker[0]["high"]
                 last = ticker[0]["last"]
                 vol = ticker[0]["volumeInUsd"]
-
-                ppc = float(last) * price
-                ppc = f'{ppc:.10f}'
+                
+                # Sometimes buy shows as null, so this keeps it from crashing.
+                if buy == None:
+                    buy = 0
+                #ppc = float(last) * price
+                appc = float(sell) * price
+                bppc = float(buy) * price
+                appc = f'{appc:.10f}'
+                bppc = f'{bppc:.10f}'
+                buy = f'{buy:.10f}'
                 sell = f'{sell:.10f}'
 
-                payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), ppc]
+                payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), appc, bppc, exchange, str(timestamp)]
                 #payload = [each_pair, at, buy, sell, low, high, last, vol]
                 #print(payload)
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/crex24tickers.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {ppc} USD per coin.\n   Current CMC price for {c} is ${price}\n""")
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {appc} USD per coin.\n   Current CMC price for {c} is ${price}\n""")
             
             except Exception as e:
                 print(f"Error in main_loop: {e}")
@@ -119,7 +131,8 @@ class ArbiBot():
         print(Style.BRIGHT + Fore.WHITE + Back.CYAN + f"The lowest purchase price is {ticker}: ${lp}")
 
     def get_xeggex_info(self, coin, timestamp, pricelist):
-        # Create crex24tickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
+        # Create xeggextickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
+        exchange = "XEGGEX"
         with open('./data/xeggexmarketsymbol.csv', 'w', newline='') as file:
             fwriter = csv.writer(file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"### XEGGEX {str(timestamp)} ###")
@@ -145,14 +158,18 @@ class ArbiBot():
                 last = ticker["lastPriceNumber"]
                 vol = ticker["volumeUsdNumber"]
 
-                ppc = float(last) * price
-                ppc = f'{ppc:.10f}'
+                #ppc = float(last) * price
+                appc = float(sell) * price
+                bppc = float(buy) * price
+                appc = f'{appc:.10f}'
+                buy = f'{buy:.10f}'
                 sell = f'{sell:.10f}'
+                bppc = f'{bppc:.10f}'
                 
-                payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), ppc]
+                payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), appc, bppc, exchange, str(timestamp)]
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/xeggexmarketsymbol.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {ppc} USD per coin.\n   Current CMC price for {c} is ${price}\n""")
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {appc} USD per coin.\n   Current CMC price for {c} is ${price}\n""")
 
             except Exception as e:
                 print(f"Error in main_loop: {e}")
