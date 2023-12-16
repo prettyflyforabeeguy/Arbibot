@@ -9,7 +9,6 @@ class AppSettings:
         self.appsettings_dict = {}
         self.read_appsettingsjson()
 
-         #self.crexPairs = _appsettings.AppSettings().appsetting_vsearch(self.appsettings_dict, "CrexTradePairs")
         #self.xeggexPairs = _appsettings.AppSettings().appsetting_vsearch(self.appsettings_dict, "XeggexTradePairs")
         #self.pairsList = []
 
@@ -35,10 +34,13 @@ class AppSettings:
         coin = self.appsetting_vsearch(appsettings_dict, "Coin")
         cpatexEnabled = self.appsetting_vsearch(appsettings_dict, "CpatexEnabled")
         cpatexPairs = self.appsetting_vsearch(appsettings_dict, "CpatexTradePairs")
-        crex24Enabled = self.appsetting_vsearch(appsettings_dict, "Crex24Enabled")
-        crexPairs = self.appsetting_vsearch(appsettings_dict, "CrexTradePairs")
+        mercatoxEnabled = self.appsetting_vsearch(appsettings_dict, "MercatoxEnabled")
+        mercatoxPairs = self.appsetting_vsearch(appsettings_dict, "MercatoxTradePairs")
         xeggexEnabled = self.appsetting_vsearch(appsettings_dict, "XeggexEnabled")
         xeggexPairs = self.appsetting_vsearch(appsettings_dict, "XeggexTradePairs")
+        stakecubeEnabled = self.appsetting_vsearch(appsettings_dict, "StakecubeEnabled")
+        stakecubePairs = self.appsetting_vsearch(appsettings_dict, "StakecubeTradePairs")
+
         pairsList = []
 
         if cpatexEnabled == True:
@@ -48,19 +50,26 @@ class AppSettings:
                 c = c.upper()
                 pairsList.append(c)
 
-        if crex24Enabled == True:
-            for each_pair in crexPairs:
+        if mercatoxEnabled == True:
+            for each_pair in mercatoxPairs:
                 clenght = len(coin) + 1
                 c = each_pair[clenght:]
                 c = c.upper()
                 pairsList.append(c)
-        
+
         if xeggexEnabled == True:
             for each_pair in xeggexPairs:
                 clenght = len(coin) + 1
                 c = each_pair[clenght:]
                 c = c.upper()
-                pairsList.append(c)   
+                pairsList.append(c)
+
+        if stakecubeEnabled == True:
+           for each_pair in stakecubePairs:
+                clenght = len(coin) + 1
+                c = each_pair[clenght:]
+                c = c.upper()
+                pairsList.append(c)
 
         unique_pairs = list(set(pairsList)) 
         return unique_pairs

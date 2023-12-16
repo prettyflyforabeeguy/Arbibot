@@ -6,6 +6,7 @@ import json
 import credentials as _creds
 import api_client as _api
 import time
+import appsettings as _appsettings
 
 class APIClient():
     def __init__(self):
@@ -220,14 +221,6 @@ class APIClient():
             print(e)
         return price
 
-    # Crex24 Public API
-    def get_Crex24Ticker(self, method, tradepair):
-        apiName = tradepair + "_crex24ticker"
-        uri = "https://api.crex24.com/v2/public/tickers?instrument="
-        url = uri + tradepair
-        response = _api.APIClient().api_call(method, apiName, url, "")
-        return response
-
     # Xeggex Public API - Get Market by symbol
     def get_XeggexMarketSymbol(self, method, tradepair):
         apiName = tradepair + "_xeggexMarketSymbol"
@@ -235,6 +228,83 @@ class APIClient():
         url = uri + "/market/getbysymbol/" + tradepair
         response = _api.APIClient().api_call(method, apiName, url, "")
         return response
+
+    # StakeCube Public API - Get Markets
+    def get_StakeCubeMarketSymbol(self, method, tradepair):
+        apiName = tradepair + "_stakecubeMarketSymbol"
+        uri = "https://stakecube.io/api/v2"
+        url = uri + "/exchange/spot/markets?market=" + tradepair
+        response = _api.APIClient().api_call(method, apiName, url, "")
+        return response
+
+    # StakeCube Public API - Orderbook
+    def get_StakeCubeOrderbook(self, method, tradepair):
+        apiName = tradepair + "_stakecubeOrderbook"
+        uri = "https://stakecube.io/api/v2"
+        url = uri + "/exchange/spot/orderbook?market=" + tradepair
+        response = _api.APIClient().api_call(method, apiName, url, "")
+        return response
+
+    # StakeCube get lowest bid and highest ask
+    def get_StakeCubeBidAsk(self, method, tradepair):
+        asklist = []
+        bidlist = []
+        pricelist = []
+        pricelist2 = []
+        orderbook = self.get_StakeCubeOrderbook(method, tradepair) 
+
+        # collect all the asks
+        for ask in orderbook["result"]["asks"]:
+            asklist.append(ask)
+        #ask = asklist[0]["price"] # It appears stake cube places the lowest ask at index 0 and lowest bid at index 0 but not reliably
+
+        listlen = len(asklist)
+        for i in range (0, listlen):
+            for k,v in asklist[i].items():
+                if k == "price":
+                    pricelist.append(v)
+        ask = min(pricelist)
+
+        # collect all the bids
+        for bid in orderbook["result"]["bids"]:
+            bidlist.append(bid)
+        #bid = bidlist[0]["price"] # It appears stake cube places the lowest ask at index 0 and lowest bid at index 0 but not reliably
+
+        listlen2 = len(bidlist)
+        for i in range (0, listlen2):
+            for k,v in bidlist[i].items():
+                if k == "price":
+                    pricelist2.append(v)
+        bid = max(pricelist2)
+
+        return ask, bid
+
+    # Mercatox Ticker
+    def get_MercatoxTicker(self, method):
+        apiName = "_mercatoxTicker"
+        uri = "https://www.mercatox.com/api/public/v1"
+        url = uri + "/ticker"
+        response = _api.APIClient().api_call(method, apiName, url, "")
+        return response        
+    
+    # Mercatox function to parse a trade pair
+    def get_MercatoxTradePair(self, tradepair, tickerdata):
+        tplist = []
+        for k, v in tickerdata.items():
+            if k == tradepair:
+                tplist.append(v)
+        return tplist
+
+    # Mercatox orderbook
+    def get_MercatoxOrderbook(self, method, tradepair):
+        apiName = tradepair + "_mercatoxOrderbook"
+        uri = "https://www.mercatox.com/api/public/v1"
+        url = uri + "/orderbook?market_pair=" + tradepair
+        response = _api.APIClient().api_call(method, apiName, url, "")
+        return response
+
+
+
 
     # Fetch CMC Prices for unique coins
     def get_CMC_Prices(self, unique_pairs, currency):
@@ -267,7 +337,7 @@ if __name__ == '__main__':
     #response = r.markets("GET")
     #response = r.ticker("GET","ltc", "usdc")
     #response = r.ticker("GET","", "dimedoge")
-    response = r.ticker("GET","", "dimebnb")
+    #response = r.ticker("GET","", "dimebnb")
 
     #response = r.members("GET")
     #response = r.depth("GET", "dime", "usdc")
@@ -282,8 +352,7 @@ if __name__ == '__main__':
     #response = r.deposit_address("GET", "btc")
     #response = r.get_k("GET","dimebtc")
     #response = r.get_k_with_pending_trades("GET","dimebtc")
-    #response = r.cmc_Price_Quote("ETH", "USD")
-    #response = r.get_Crex24Ticker("GET", "DIME-ETH")
+    #response = r.cmc_Price_Quote("SCC", "USD")
     #response = r.get_XeggexMarketSymbol("GET", "DIME_DOGE")
 
     #pl = r.get_CMC_Prices(uniquepairs, "USD")
@@ -292,4 +361,16 @@ if __name__ == '__main__':
     #print(f"Test API result:\n{response}")
     #print(response["updatedAt"])
 
-    print(response)
+    # STAKE CUBE TESTS
+    #response = r.get_StakeCubeMarketSymbol("GET", "DIME_USDT")
+    #response = r.get_StakeCubeOrderbook("GET", "DIME_USDT")
+    #r1, r2 = r.get_StakeCubeBidAsk("GET", "DIME_USDT")
+    #print(r1, r2)
+
+    # MERCATOX TESTS
+    #response = r.get_MercatoxOrderbook("GET", "DIME_USDT")
+    #response = r.get_MercatoxOrderbook("GET", "DIME_ETH")
+
+    payload = r.get_MercatoxTicker("GET")
+    ticker = r.get_MercatoxTradePair("DIME_ETH", payload)
+    print(ticker)

@@ -15,7 +15,6 @@ This key will need to be added to your config/creds.json (see example below)<br>
 <b>Optional Settings:</b><br>
 If you create an account and setup an APIKey and APISecret from any of the supported exchanges below, You'll have the potential to make more complex queries in the future:   <br>
 <a href=https://c-patex.com>https://c-patex.com</a><br>
-<a href=https://crex24.com>https://crex24.com</a><br>
 <a href=https://xeggex.com/>https://xeggex.com</a><br>
 This key and secret will need to be added to your config/creds.json (see example below)<br>
 
@@ -34,12 +33,6 @@ You can change the coin to any coin the exchange supports and include all the tr
         "dimeltc",
         "dimedoge",
         "dimeusdc"
-    ],
-    "Crex24Enabled": true,
-    "CrexTradePairs":[
-        "DIME-BTC",
-        "DIME-ETH",
-        "DIME-USDT"
     ],
     "XeggexEnabled": true,
     "XeggexTradePairs":[
@@ -61,8 +54,6 @@ Just populate your API Keys and API Secrets accordingly between the quotes<br>
     "Cpatexapi_secret": "",
     "Cpatexendpoint": "https://c-patex.com:443/api/v2",
     "CMCKey": "",
-    "crex24apikey": "",
-    "crex24apisecret": "",
     "xeggexapikey": "",
     "xeggexapisecret": ""
 }
