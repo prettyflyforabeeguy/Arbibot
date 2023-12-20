@@ -73,8 +73,8 @@ class ArbiBot():
                 #print(payload)
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/cpatextickers.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   The lowest {c} sale price available on exchange: {sell}\n   This is approximately {appc} USD per coin.\n   Current CMC price for {c} is ${price}\n""")
-            
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   CMC {c} is ${price}\n   Lowest {c} ask: {sell}\n   USD equivalent: {appc}\n   ****************************** \n   Highest {c} Bid: {buy}\n   USD equivalent: {bppc}\n""")
+
             except Exception as e:
                 print(f"Error in main_loop: {e}")
 
@@ -82,6 +82,8 @@ class ArbiBot():
         ticker, hp = _logger.Logger().get_highest_price("./data/cpatextickers.csv")
         print(Style.BRIGHT + Fore.CYAN + Back.MAGENTA + f"The lowest ask is {ticker}: ${lp}")
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"The highest bid is {ticker}: ${hp}")
+
+        return exchange, ticker, lp, hp
 
     def get_mercatox_info(self, coin, timestamp, pricelist):
         # Create stakecubetickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
@@ -122,7 +124,7 @@ class ArbiBot():
                 payload = [each_pair, at, buy, sell, low, high, last, str(vol), str(price), str(appc), str(bppc), exchange, str(timestamp)]
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/mercatoxmarketsymbol.csv", payload)
-                print(Style.BRIGHT + Fore.GREEN + f""" {each_pair}:\n   Current CMC price for {c} is ${price}\n   The lowest {c} sale (Ask) price available on exchange: {sell}\n   This is approximately {str(appc)} USD per coin.\n   ****************************** \n   The highest {c} buy (Bid) price available on exchange: {str(buy)}\n   This is approximately {str(bppc)} USD per coin.\n""")
+                print(Style.BRIGHT + Fore.GREEN + f""" {each_pair}:\n   CMC {c} is ${price}\n   Lowest {c} ask: {sell}\n   USD equivalent: {str(appc)}\n   ****************************** \n   Highest {c} Bid: {str(buy)}\n   USD equivalent: {str(bppc)}\n""")
 
             except Exception as e:
                 print(f"Error in main_loop: {e}")
@@ -131,6 +133,8 @@ class ArbiBot():
         ticker, hp = _logger.Logger().get_highest_price("./data/mercatoxmarketsymbol.csv")
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"The lowest ask is {ticker}: ${str(lp)}")
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"The highest bid is {ticker}: ${str(hp)}")
+
+        return exchange, ticker, lp, hp 
 
     def get_xeggex_info(self, coin, timestamp, pricelist):
         # Create xeggextickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
@@ -171,8 +175,7 @@ class ArbiBot():
                 payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), appc, bppc, exchange, str(timestamp)]
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/xeggexmarketsymbol.csv", payload)
-                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   Current CMC price for {c} is ${price}\n   The lowest {c} sale (Ask) price available on exchange: {sell}\n   This is approximately {appc} USD per coin.\n   ****************************** \n   The highest {c} buy (Bid) price available on exchange: {buy}\n   This is approximately {bppc} USD per coin.\n""")
-
+                print(Style.BRIGHT + Fore.BLUE + f""" {each_pair}:\n   CMC {c} is ${price}\n   Lowest {c} ask: {sell}\n   USD equivalent: {appc}\n   ****************************** \n   Highest {c} Bid: {buy}\n   USD equivalent: {bppc}\n""")
 
             except Exception as e:
                 print(f"Error in main_loop: {e}")
@@ -181,6 +184,8 @@ class ArbiBot():
         ticker, hp = _logger.Logger().get_highest_price("./data/xeggexmarketsymbol.csv")
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"The lowest ask is {ticker}: ${lp}")
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"The highest bid is {ticker}: ${hp}")
+
+        return exchange, ticker, lp, hp
 
     def get_stakecube_info(self, coin, timestamp, pricelist):
         # Create stakecubetickers.csv new without column headers every time so it doesn't get bogged down with repeat data.
@@ -226,7 +231,7 @@ class ArbiBot():
                 payload = [each_pair, at, buy, sell, low, high, last, vol, str(price), appc, bppc, exchange, str(timestamp)]
                 _logger.Logger().write_to_csv("./data/ticker_history.csv", payload)
                 _logger.Logger().write_to_csv("./data/stakecubemarketsymbol.csv", payload)
-                print(Style.BRIGHT + Fore.CYAN + f""" {each_pair}:\n   Current CMC price for {c} is ${price}\n   The lowest {c} sale (Ask) price available on exchange: {sell}\n   This is approximately {appc} USD per coin.\n   ****************************** \n   The highest {c} buy (Bid) price available on exchange: {buy}\n   This is approximately {bppc} USD per coin.\n""")
+                print(Style.BRIGHT + Fore.CYAN + f""" {each_pair}:\n   CMC {c} is ${price}\n   Lowest {c} ask: {sell}\n   USD equivalent: {appc}\n   ****************************** \n   Highest {c} Bid: {buy}\n   USD equivalent: {bppc}\n""")
 
             except Exception as e:
                 print(f"Error in main_loop: {e}")
@@ -235,6 +240,8 @@ class ArbiBot():
         ticker, hp = _logger.Logger().get_highest_price("./data/stakecubemarketsymbol.csv")
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"The lowest ask is {ticker}: ${lp}")
         print(Style.DIM + Fore.BLACK + Back.WHITE + f"The highest bid is {ticker}: ${hp}")
+
+        return exchange, ticker, lp, hp
 
 
     def main_loop(self, chkfreq, unique_pairs):
@@ -252,20 +259,26 @@ class ArbiBot():
             try:
                 dt = datetime.datetime.now()
                 if self.cpatexEnabled == True:
-                    self.get_cpatex_info(self.coin, dt, pricelist)
+                    capt_exchange, cpat_tp, cpat_lp, cpat_hp =self.get_cpatex_info(self.coin, dt, pricelist)
                     print("")
 
                 if self.mercatoxEnabled == True:
-                    self.get_mercatox_info(self.coin, dt, pricelist)
+                    merc_exchange, merc_tp, merc_lp, merc_hp = self.get_mercatox_info(self.coin, dt, pricelist)
                     print("")
 
                 if self.xeggexEnabled == True:
-                    self.get_xeggex_info(self.coin, dt, pricelist)
+                    xegg_exchange, xegg_tp, xegg_lp, xegg_hp = self.get_xeggex_info(self.coin, dt, pricelist)
                     print("")
 
                 if self.stakecubeEnabled == True:
-                    self.get_stakecube_info(self.coin, dt, pricelist)
+                    stake_exchange, stake_tp, stake_lp, stake_hp = self.get_stakecube_info(self.coin, dt, pricelist)
                     print("")
+
+                print(Fore.YELLOW + "EXCHANGE   TRADE PAIR      ASK              BID")
+                print(f"""{merc_exchange}   {merc_tp}   {merc_lp}       {merc_hp}
+{xegg_exchange}     {xegg_tp}   {xegg_lp}   {xegg_hp}
+{stake_exchange}  {stake_tp}    {stake_lp}       {stake_hp}
+                      """)
 
                 appStartTimeStamp = str(datetime.datetime.now())
                 print(f"{appStartTimeStamp}")
